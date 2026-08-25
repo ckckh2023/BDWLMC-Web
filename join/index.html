@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="加入 BDWL基岩荒地 Minecraft 服务器" />
+    <title>加入 - BDWL基岩荒地</title>
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+  <body>
+    <!-- ==================== 清晰背景截图 ==================== -->
+    <div
+      class="join-bg"
+      style="background-image: url('/assets/src/src1.png')"
+      aria-hidden="true"
+    ></div>
+
+    <!-- ==================== Header ==================== -->
+    <header class="site-header">
+      <div class="site-header__left">
+        <img
+          class="site-header__avatar"
+          src="/assets/icon/icon64.png"
+          alt="服务器头像"
+        />
+        <span class="site-header__title">BDWL基岩荒地</span>
+      </div>
+
+      <nav class="site-header__nav" aria-label="主导航">
+        <a class="site-header__nav-link" href="/">首页</a>
+        <a class="site-header__nav-link" href="/join/">加入</a>
+        <a class="site-header__nav-link" href="/docs/">文档</a>
+        <a class="site-header__nav-link" href="/about/">关于</a>
+      </nav>
+
+      <div class="site-header__right"></div>
+    </header>
+
+    <!-- ==================== Main ==================== -->
+    <main class="join-main">
+      <section class="join-grid">
+        <!-- 卡片 1：服务器概览 -->
+        <article class="join-card">
+          <span class="join-card__eyebrow">服务器概览</span>
+          <h2 class="join-card__title">关于 BDWL基岩荒地</h2>
+          <p class="join-card__text">
+            一个以原版生存为核心、兼顾建造与社区的 Minecraft 服务器。支持 Java 版与基岩版跨平台互通，
+            稳定运行、公平机制、友好氛围，欢迎每一位冒险者加入方块世界。
+          </p>
+          <dl class="info-list">
+            <div class="info-row">
+              <dt class="info-row__label">服务端版本</dt>
+              <dd class="info-row__value">26.2（最新稳定版）</dd>
+            </div>
+            <div class="info-row">
+              <dt class="info-row__label">服务器类型</dt>
+              <dd class="info-row__value">类原版生存 / 跨平台互通</dd>
+            </div>
+            <div class="info-row">
+              <dt class="info-row__label">核心机制</dt>
+              <dd class="info-row__value">无经济、无传送指令干扰、原版进度</dd>
+            </div>
+            <div class="info-row">
+              <dt class="info-row__label">跨平台</dt>
+              <dd class="info-row__value">Java 版 + 基岩版（Geyser）</dd>
+            </div>
+          </dl>
+        </article>
+
+        <!-- 卡片 2：服务器状态 -->
+        <article
+          class="join-card"
+          data-server-status
+          data-host="bdwlexp.xiao-blog.top"
+        >
+          <span class="join-card__eyebrow">实时状态</span>
+          <h2 class="join-card__title">服务器状态</h2>
+          <div class="status-row">
+            <span
+              class="status-dot status-dot--loading"
+              data-status-dot
+              aria-hidden="true"
+            ></span>
+            <span class="status-row__text" data-status-text>查询中</span>
+          </div>
+          <dl class="info-list">
+            <div class="info-row">
+              <dt class="info-row__label">在线人数</dt>
+              <dd class="info-row__value">
+                <span data-status-online>--</span> / <span data-status-max>--</span>
+              </dd>
+            </div>
+            <div class="info-row">
+              <dt class="info-row__label">服务端版本</dt>
+              <dd class="info-row__value" data-status-version>--</dd>
+            </div>
+            <div class="info-row">
+              <dt class="info-row__label">查询延迟</dt>
+              <dd class="info-row__value" data-status-latency>-- ms</dd>
+            </div>
+          </dl>
+          <p class="status-motd" data-status-motd hidden></p>
+          <p class="status-players" data-status-players hidden></p>
+          <p class="join-card__text join-card__text--hint">
+            数据由 api.mcsrvstat.us 提供，在浏览器端实时查询。
+          </p>
+        </article>
+
+        <!-- 卡片 3：Java 版加入 -->
+        <article class="join-card">
+          <span class="join-card__eyebrow">Java 版</span>
+          <h2 class="join-card__title">Java 版加入方式</h2>
+          <p class="join-card__text">
+            适用于 PC 端 Java 版玩家，直接通过游戏内服务器列表添加即可。
+          </p>
+          <dl class="info-list">
+            <div class="info-row">
+              <dt class="info-row__label">服务器地址</dt>
+              <dd class="info-row__value info-row__value--code">bdwlexp.xiao-blog.top</dd>
+            </div>
+            <div class="info-row">
+              <dt class="info-row__label">游戏版本</dt>
+              <dd class="info-row__value">26.2</dd>
+            </div>
+          </dl>
+          <ol class="step-list">
+            <li>启动 Minecraft Java 版，进入「多人游戏」</li>
+            <li>点击「添加服务器」，输入上方服务器地址</li>
+            <li>保存并加入，即可开始游戏</li>
+          </ol>
+        </article>
+
+        <!-- 卡片 4：基岩版加入 -->
+        <article class="join-card">
+          <span class="join-card__eyebrow">基岩版</span>
+          <h2 class="join-card__title">基岩版加入方式</h2>
+          <p class="join-card__text">
+            适用于手机、主机端基岩版玩家，通过 Geyser 互通组件与 Java 版同服游玩。
+          </p>
+          <dl class="info-list">
+            <div class="info-row">
+              <dt class="info-row__label">服务器地址</dt>
+              <dd class="info-row__value info-row__value--code">bdwlexp.xiao-blog.top</dd>
+            </div>
+            <div class="info-row">
+              <dt class="info-row__label">端口</dt>
+              <dd class="info-row__value info-row__value--code">43220</dd>
+            </div>
+          </dl>
+          <ol class="step-list">
+            <li>启动 Minecraft 基岩版，进入「服务器」标签页</li>
+            <li>添加外部服务器，填入地址与端口</li>
+            <li>保存并加入，即可跨平台游玩</li>
+          </ol>
+        </article>
+      </section>
+    </main>
+
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/status.js"></script>
+  </body>
+</html>
