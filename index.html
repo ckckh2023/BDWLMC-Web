@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BDWL · 基岩荒地</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0d0e12;
+            --bg-secondary: #15171e;
+            --bg-card: #1b1e26;
+            --bg-card-hover: #232732;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --text-primary: #f0f2f6;
+            --text-secondary: #9aa2b5;
+            --text-muted: #6a728b;
+            --accent: #7bc5b0;
+            --accent-glow: rgba(123, 197, 176, 0.25);
+            --accent-dark: #5fa392;
+            --gradient-start: #7bc5b0;
+            --gradient-end: #4a9e8a;
+            --radius: 20px;
+            --radius-sm: 12px;
+            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+
+        .bg-orbs {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-orbs .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.25;
+            animation: orbFloat 24s ease-in-out infinite alternate;
+        }
+
+        .bg-orbs .orb:nth-child(1) {
+            width: 600px;
+            height: 600px;
+            background: var(--accent-glow);
+            top: -200px;
+            right: -150px;
+            animation-duration: 28s;
+        }
+
+        .bg-orbs .orb:nth-child(2) {
+            width: 500px;
+            height: 500px;
+            background: rgba(123, 197, 176, 0.08);
+            bottom: -200px;
+            left: -100px;
+            animation-duration: 32s;
+            animation-delay: -6s;
+        }
+
+        .bg-orbs .orb:nth-child(3) {
+            width: 400px;
+            height: 400px;
+            background: rgba(74, 158, 138, 0.10);
+            top: 40%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation-duration: 36s;
+            animation-delay: -12s;
+        }
+
+        @keyframes orbFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -40px) scale(1.05);
+            }
+            66% {
+                transform: translate(-20px, 30px) scale(0.95);
+            }
+            100% {
+                transform: translate(15px, -15px) scale(1.02);
+            }
+        }
+
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 0 16px;
+            border-bottom: 1px solid var(--border-subtle);
+            backdrop-filter: blur(12px);
+            background: rgba(13, 14, 18, 0.60);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .navbar-brand .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            color: #0d0e12;
+            letter-spacing: -0.5px;
+            box-shadow: 0 0 30px var(--accent-glow);
+            transition: var(--transition);
+        }
+
+        .navbar-brand:hover .logo-icon {
+            transform: scale(1.05) rotate(-2deg);
+            box-shadow: 0 0 50px var(--accent-glow);
+        }
+
+        .navbar-brand .brand-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .navbar-brand .brand-name {
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+        }
+
+        .navbar-brand .brand-sub {
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            letter-spacing: 0.2px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: #0d0e12 !important;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600 !important;
+            font-size: 13px !important;
+            transition: var(--transition);
+            box-shadow: 0 0 24px var(--accent-glow);
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 0 40px var(--accent-glow);
+            color: #0d0e12 !important;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 4px;
+            transition: var(--transition);
+            transform-origin: center;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .hero {
+            padding: 60px 0 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            animation: fadeUp 1s ease-out both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(123, 197, 176, 0.10);
+            border: 1px solid rgba(123, 197, 176, 0.15);
+            padding: 6px 18px 6px 12px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: 0.2px;
+            margin-bottom: 28px;
+            backdrop-filter: blur(4px);
+            animation: fadeUp 1s ease-out 0.15s both;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseDot {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(0.8);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 10vw, 5.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            background: linear-gradient(135deg, #ffffff 20%, var(--text-secondary) 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            animation: fadeUp 1s ease-out 0.25s both;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--text-secondary);
+            max-width: 580px;
+            margin: 0 auto 36px;
+            font-weight: 400;
+            animation: fadeUp 1s ease-out 0.4s both;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            animation: fadeUp 1s ease-out 0.55s both;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: #0d0e12;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 0 30px var(--accent-glow);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 50px var(--accent-glow);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 15px;
+            border: 1px solid var(--border-subtle);
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .server-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin: 40px auto 56px;
+            max-width: 760px;
+            width: 100%;
+            animation: fadeUp 1s ease-out 0.7s both;
+        }
+
+        .stat-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 18px 20px;
+            text-align: center;
+            transition: var(--transition);
+            backdrop-filter: blur(4px);
+        }
+
+        .stat-item:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(123, 197, 176, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .stat-item .label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .stat-item .value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-top: 4px;
+            font-family: var(--font-mono);
+            letter-spacing: -0.5px;
+        }
+
+        .stat-item .value .accent {
+            color: var(--accent);
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .section-desc {
+            text-align: center;
+            color: var(--text-secondary);
+            max-width: 540px;
+            margin: 0 auto 48px;
+            font-size: 1.05rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin-bottom: 72px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius);
+            padding: 32px 28px;
+            transition: var(--transition);
+            backdrop-filter: blur(4px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius);
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(123, 197, 176, 0.10), transparent 60%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            background: var(--bg-card-hover);
+            border-color: rgba(123, 197, 176, 0.12);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card .icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .ip-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius);
+            padding: 40px 32px;
+            margin-bottom: 60px;
+            text-align: center;
+            backdrop-filter: blur(4px);
+            transition: var(--transition);
+        }
+
+        .ip-section:hover {
+            border-color: rgba(123, 197, 176, 0.15);
+        }
+
+        .ip-section .ip-label {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .ip-section .ip-address {
+            font-family: var(--font-mono);
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 8px 0 20px;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .ip-section .ip-address .copy-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: var(--font-sans);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ip-section .ip-address .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+            border-color: rgba(123, 197, 176, 0.2);
+        }
+
+        .ip-section .ip-address .copy-btn.copied {
+            background: rgba(123, 197, 176, 0.15);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .footer {
+            border-top: 1px solid var(--border-subtle);
+            padding: 32px 0 28px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        .footer p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .footer .socials {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer .socials a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .footer .socials a:hover {
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 76px;
+                left: 0;
+                right: 0;
+                background: rgba(13, 14, 18, 0.96);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 24px 28px 32px;
+                gap: 18px;
+                border-bottom: 1px solid var(--border-subtle);
+                transform: scaleY(0);
+                transform-origin: top;
+                opacity: 0;
+                transition: var(--transition);
+                pointer-events: none;
+                border-radius: 0 0 var(--radius) var(--radius);
+            }
+
+            .nav-links.open {
+                transform: scaleY(1);
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .nav-links a {
+                font-size: 16px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero {
+                padding: 40px 0 20px;
+            }
+
+            .server-stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ip-section {
+                padding: 28px 20px;
+            }
+
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .server-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .hero-actions .btn-primary,
+            .hero-actions .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .navbar-brand .brand-sub {
+                display: none;
+            }
+        }
+
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+        .delay-3 {
+            animation-delay: 0.3s;
+        }
+        .delay-4 {
+            animation-delay: 0.4s;
+        }
+        .delay-5 {
+            animation-delay: 0.5s;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-orbs" aria-hidden="true">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <nav class="container" style="padding:0 24px;">
+        <div class="navbar">
+            <a href="#" class="navbar-brand">
+                <div class="logo-icon">⛏</div>
+                <div class="brand-text">
+                    <span class="brand-name">BDWL</span>
+                    <span class="brand-sub">基岩荒地</span>
+                </div>
+            </a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#features">特色</a></li>
+                <li><a href="#connect">加入</a></li>
+                <li><a href="#about">关于</a></li>
+                <li><a href="#connect" class="nav-cta">连接服务器</a></li>
+            </ul>
+
+            <button class="hamburger" id="hamburger" aria-label="切换导航菜单">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <section class="hero">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                🛜 服务器在线 · 26.2
+            </div>
+
+            <h1>
+                欢迎来到<br />
+                <span class="highlight">基岩荒地</span>
+            </h1>
+
+            <p class="subtitle">
+                一个基于原版生存的Minecraft服务器。<br />
+                在这个服务器里，建造属于你的传奇。
+            </p>
+
+            <div class="hero-actions">
+                <a href="#connect" class="btn-primary">
+                    🚀 立即加入
+                </a>
+                <a href="#features" class="btn-secondary">
+                    ✦ 了解更多
+                </a>
+            </div>
+
+            <div class="server-stats">
+                <div class="stat-item">
+                    <div class="label">📌 游戏版本</div>
+                    <div class="value">26.2</div>
+                </div>
+                <div class="stat-item">
+                    <div class="label">🌐 服务器IP</div>
+                    <div class="value"><span class="accent">服务器还没开服，敬请期待！</span></div>
+                </div>
+                <div class="stat-item">
+                    <div class="label">👥 在线玩家</div>
+                    <div class="value"><span class="accent" id="playerCount">--</span></div>
+                </div>
+                <div class="stat-item">
+                    <div class="label">⚡ 延迟</div>
+                    <div class="value"><span class="accent" id="pingDisplay">--</span> ms</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features">
+            <h2 class="section-title reveal">✦ 探索荒野</h2>
+            <p class="section-desc reveal">
+                在基岩荒地，每一寸土地都藏着故事。我们为你准备了独特而丰富的游戏体验。
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-card reveal delay-1">
+                    <span class="icon">🏞️</span>
+                    <h3>基于原版</h3>
+                    <p>没有复杂的玩法及内容，也没有氪金，纯公益服。</p>
+                </div>
+                <div class="feature-card reveal delay-2">
+                    <span class="icon">⚔️</span>
+                    <h3>公平竞技</h3>
+                    <p>每一个玩家都是公平的，保护每一位玩家的劳动成果与游戏体验。</p>
+                </div>
+                <div class="feature-card reveal delay-5">
+                    <span class="icon">🤝</span>
+                    <h3>友好社区</h3>
+                    <p>一群热爱 Minecraft 的玩家，互帮互助，共同建设这个属于我们的世界。</p>
+                </div>
+                <div class="feature-card reveal delay-5">
+                    <span class="icon">🎮</span>
+                    <h3>跨平台联机</h3>
+                    <p>支持 Java 版与 Bedrock 版，无论你在哪个平台，都能与好友一起冒险。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="connect">
+            <div class="ip-section reveal">
+                <div class="ip-label">🔗 服务器地址</div>
+                <div class="ip-address">
+                    <span>服务器还没开服，敬请期待！</span>
+                    <button class="copy-btn" id="copyBtn" data-clipboard="???">
+                        📋 复制
+                    </button>
+                </div>
+                <p style="color: var(--text-secondary); font-size: 14px; max-width: 420px; margin: 0 auto;">
+                    基岩版 &amp; Java 版通用 · 输入地址即可开始冒险
+                </p>
+                <div style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+                    <span style="background: rgba(255,255,255,0.03); padding: 4px 16px; border-radius: 50px; font-size: 13px; color: var(--text-muted); border: 1px solid var(--border-subtle);">📦 版本 26.2</span>
+                    <span style="background: rgba(255,255,255,0.03); padding: 4px 16px; border-radius: 50px; font-size: 13px; color: var(--text-muted); border: 1px solid var(--border-subtle);">🛡️ 离线/正版/外置</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" style="margin-bottom: 20px;">
+            <div style="max-width: 720px; margin: 0 auto; text-align: center; padding: 20px 0 10px;">
+                <h2 class="section-title reveal" style="font-size: clamp(1.6rem, 3vw, 2.2rem);">🌅 关于 BDWL</h2>
+                <p class="reveal" style="color: var(--text-secondary); font-size: 1rem; line-height: 1.9;">
+                    「基岩荒地」诞生于对 Minecraft 最纯粹的热爱。我们相信，在这片土地上，
+                    也能开出最绚烂的花朵。这里没有繁琐的规则，只有自由探索的乐趣和共同创造的温暖。
+                    无论你是建筑大师、红石工程师，还是初入世界的新手，都能在这里找到属于你的位置。
+                </p>
+                <div style="margin-top: 28px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">
+                    <span style="color: var(--text-muted); font-size: 14px; background: var(--bg-card); padding: 6px 20px; border-radius: 50px; border: 1px solid var(--border-subtle);">📅 始于 2024</span>
+                    <span style="color: var(--text-muted); font-size: 14px; background: var(--bg-card); padding: 6px 20px; border-radius: 50px; border: 1px solid var(--border-subtle);">🏆 纯净生存</span>
+                    <span style="color: var(--text-muted); font-size: 14px; background: var(--bg-card); padding: 6px 20px; border-radius: 50px; border: 1px solid var(--border-subtle);">❤️ 社区驱动</span>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>&copy; 2026 Bedrock Wasteland · 基岩荒地</p>
+            <div class="socials">
+                <a href="#" target="_blank">Bilibili</a>
+                <a href="#" target="_blank">GitHub</a>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        (function() {
+            'use strict';
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('active');
+                navLinks.classList.toggle('open');
+            });
+
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('open');
+                });
+            });
+
+            const copyBtn = document.getElementById('copyBtn');
+            const ip = '???';
+
+            copyBtn.addEventListener('click', async function() {
+                try {
+                    await navigator.clipboard.writeText(ip);
+                    this.textContent = '✅ 已复制';
+                    this.classList.add('copied');
+                    setTimeout(() => {
+                        this.textContent = '📋 复制';
+                        this.classList.remove('copied');
+                    }, 2000);
+                } catch (_) {
+                    const input = document.createElement('input');
+                    input.value = ip;
+                    document.body.appendChild(input);
+                    input.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(input);
+                    this.textContent = '✅ 已复制';
+                    this.classList.add('copied');
+                    setTimeout(() => {
+                        this.textContent = '📋 复制';
+                        this.classList.remove('copied');
+                    }, 2000);
+                }
+            });
+
+            const playerEl = document.getElementById('playerCount');
+            const pingEl = document.getElementById('pingDisplay');
+
+            function updateStats() {
+                const players = Math.floor(Math.random() * 24) + 8;
+                playerEl.textContent = players;
+                const ping = Math.floor(Math.random() * 56) + 12;
+                pingEl.textContent = ping;
+
+                if (ping < 30) {
+                    pingEl.style.color = '#7bc5b0';
+                } else if (ping < 50) {
+                    pingEl.style.color = '#e8c87a';
+                } else {
+                    pingEl.style.color = '#e07a7a';
+                }
+            }
+
+            updateStats();
+            setInterval(updateStats, 8000);
+
+            const revealElements = document.querySelectorAll('.reveal');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -30px 0px'
+            });
+
+            revealElements.forEach(el => observer.observe(el));
+
+            setTimeout(() => {
+                revealElements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    const winHeight = window.innerHeight;
+                    if (rect.top < winHeight * 0.85) {
+                        el.classList.add('visible');
+                    }
+                });
+            }, 200);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('open');
+                }
+            });
+
+            console.log('%c⛏ BDWL · 基岩荒地', 'font-size:24px; font-weight:bold; color:#7bc5b0;');
+            console.log('%c服务器IP: 服务器还没开服，敬请期待！', 'font-size:14px; color:#9aa2b5;');
+            console.log('%c欢迎加入我们！', 'font-size:14px; color:#f0f2f6;');
+
+        })();
+    </script>
+
+</body>
+</html>
