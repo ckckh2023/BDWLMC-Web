@@ -1,29 +1,25 @@
 (function () {
   "use strict";
 
-  // ===== 导航高亮 =====
+  // ===== 导航高亮（基于当前路径） =====
   var NAV_LINKS = document.querySelectorAll(".site-header__nav-link");
 
+  function getSegment(href) {
+    if (!href || href === "/") return "home";
+    var parts = href.split("/").filter(Boolean);
+    return parts[0] || "home";
+  }
+
   function setActiveNav() {
-    var hash = (window.location.hash || "#home").replace("#", "");
+    var currentSeg = getSegment(window.location.pathname);
     NAV_LINKS.forEach(function (link) {
-      var target = link.getAttribute("href").replace("#", "");
-      if (target === hash) {
+      var seg = getSegment(link.getAttribute("href"));
+      if (seg === currentSeg) {
         link.classList.add("site-header__nav-link--active");
       } else {
         link.classList.remove("site-header__nav-link--active");
       }
     });
-  }
-
-  function handleNavClick(event) {
-    var link = event.currentTarget;
-    var href = link.getAttribute("href");
-    if (href && href.charAt(0) === "#" && href.length > 1) {
-      event.preventDefault();
-      window.location.hash = href;
-      setActiveNav();
-    }
   }
 
   // ===== 动态模糊背景 =====
@@ -82,9 +78,6 @@
   }
 
   function init() {
-    NAV_LINKS.forEach(function (link) {
-      link.addEventListener("click", handleNavClick);
-    });
     setActiveNav();
     initBackground();
   }

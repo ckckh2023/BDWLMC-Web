@@ -176,8 +176,13 @@ img {
   object-fit: cover;
 }
 
+/* 蒙版统一规格：垂直居中、宽 42%、最大 520px */
 .card__overlay {
   position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42%;
+  max-width: 520px;
   background-color: rgba(255, 255, 255, 0.92);
   border-radius: 20px;
   box-shadow: var(--shadow-overlay);
@@ -186,25 +191,14 @@ img {
   -webkit-backdrop-filter: blur(6px);
 }
 
-/* 第一张：右侧中部大块蒙版 */
-.card--hero .card__overlay {
-  top: 50%;
+/* 右侧蒙版 */
+.card--right .card__overlay {
   right: 5%;
-  transform: translateY(-50%);
-  width: 42%;
-  max-width: 520px;
 }
 
-/* 后续：快覆盖全图 */
-.card--full .card__overlay {
-  top: 4%;
-  left: 4%;
-  right: 4%;
-  bottom: 4%;
-  width: auto;
-  max-width: none;
-  transform: none;
-  background-color: rgba(255, 255, 255, 0.86);
+/* 左侧蒙版 */
+.card--left .card__overlay {
+  left: 5%;
 }
 
 .overlay__eyebrow {
@@ -222,10 +216,6 @@ img {
   font-weight: 700;
   line-height: 1.25;
   margin-bottom: 12px;
-}
-
-.card--full .overlay__title {
-  font-size: 32px;
 }
 
 .overlay__text {
@@ -252,18 +242,6 @@ img {
   box-shadow: 0 6px 18px rgba(45, 125, 70, 0.35);
 }
 
-/* ==================== Footer ==================== */
-.site-footer {
-  position: relative;
-  z-index: 1;
-  padding: 24px 32px;
-  text-align: center;
-  font-size: 13px;
-  color: var(--color-text-soft);
-  border-top: 1px solid var(--color-border);
-  background-color: var(--color-surface);
-}
-
 /* ==================== Responsive ==================== */
 @media (max-width: 768px) {
   .site-header {
@@ -276,16 +254,15 @@ img {
     padding: 8px 10px;
     font-size: 13px;
   }
-  .card--hero .card__overlay,
-  .card--full .card__overlay {
+  .card--right .card__overlay,
+  .card--left .card__overlay {
     position: static;
     transform: none;
     width: auto;
     max-width: none;
     margin: 12px;
   }
-  .overlay__title,
-  .card--full .overlay__title {
+  .overlay__title {
     font-size: 22px;
   }
 }
