@@ -5,15 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="BDWLMC Minecraft 服务器官方网站" />
     <title>BDWLMC - Minecraft 服务器</title>
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
   </head>
   <body>
+    <!-- ==================== 动态模糊背景 ==================== -->
+    <div class="bg-blur" aria-hidden="true">
+      <div class="bg-blur__layer"></div>
+      <div class="bg-blur__layer"></div>
+    </div>
+
     <!-- ==================== Header ==================== -->
     <header class="site-header">
       <div class="site-header__left">
         <img
           class="site-header__avatar"
-          src="/assets/icon/icon.png"
+          src="/assets/icons/icon.png"
           alt="服务器头像"
         />
         <span class="site-header__title">BDWLMC</span>
@@ -33,7 +39,7 @@
     <main class="main">
       <section class="waterfall" id="home">
         <!-- 第一张：右侧中部大块蒙版，服务器介绍 -->
-        <article class="card card--hero">
+        <article class="card card--hero" id="card-1">
           <img
             class="card__image"
             src="/assets/src/src1.png"
@@ -51,7 +57,7 @@
         </article>
 
         <!-- 后续：快覆盖全图蒙版 -->
-        <article class="card card--full">
+        <article class="card card--full" id="card-2">
           <img
             class="card__image"
             src="/assets/src/src2.png"
@@ -68,7 +74,7 @@
           </div>
         </article>
 
-        <article class="card card--full">
+        <article class="card card--full" id="card-3">
           <img
             class="card__image"
             src="/assets/src/src3.png"
@@ -85,7 +91,7 @@
           </div>
         </article>
 
-        <article class="card card--full">
+        <article class="card card--full" id="card-4">
           <img
             class="card__image"
             src="/assets/src/src4.png"
@@ -102,7 +108,7 @@
           </div>
         </article>
 
-        <article class="card card--full">
+        <article class="card card--full" id="card-5">
           <img
             class="card__image"
             src="/assets/src/src5.png"
@@ -126,6 +132,6 @@
       <p>BDWLMC Minecraft Server</p>
     </footer>
 
-    <script src="assets/js/main.js"></script>
+    <script src="/assets/js/main.js"></script>
   </body>
 </html>
