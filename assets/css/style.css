@@ -412,3 +412,68 @@
   background-color: rgba(0, 0, 0, 0.03);
   color: var(--color-text-soft);
 }
+
+/* ==================== 百态页：瀑布流卡片 ==================== */
+.display-card {
+  position: relative;
+}
+
+.display-card__overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 28px 32px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 0, 0, 0.55) 55%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  border-radius: 0 0 var(--radius-card) var(--radius-card);
+  color: #fff;
+  pointer-events: none;
+}
+
+.display-card__title {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+.display-card__meta {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  opacity: 0.85;
+}
+
+.display-card__desc {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.92;
+}
+
+.display-loading {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 48px 24px;
+  text-align: center;
+  font-size: 15px;
+  color: var(--color-text-soft);
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+@media (max-width: 768px) {
+  .display-card__overlay {
+    padding: 20px 22px;
+  }
+  .display-card__title {
+    font-size: 20px;
+  }
+}

@@ -3,19 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="BDWL基岩荒地 文档中心" />
-    <title>文档 - BDWL基岩荒地</title>
+    <meta name="description" content="群友百态 - BDWL基岩荒地 玩家作品集" />
+    <title>百态 - BDWL基岩荒地</title>
     <link rel="stylesheet" href="/assets/css/common.css" />
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="icon" href="/assets/icons/icon64.png" />
   </head>
   <body>
-    <!-- ==================== 清晰背景截图 ==================== -->
-    <div
-      class="join-bg"
-      style="background-image: url('/assets/src/src5.png')"
-      aria-hidden="true"
-    ></div>
+    <!-- ==================== 动态模糊背景 ==================== -->
+    <div class="bg-blur" aria-hidden="true">
+      <div class="bg-blur__layer"></div>
+      <div class="bg-blur__layer"></div>
+    </div>
 
     <!-- ==================== Header ==================== -->
     <header class="site-header">
@@ -31,7 +30,7 @@
       <nav class="site-header__nav" aria-label="主导航">
         <a class="site-header__nav-link" href="/">首页</a>
         <a class="site-header__nav-link" href="/join/">加入</a>
-        <a class="site-header__nav-link" href="/docs/">文档</a>
+        <a class="site-header__nav-link" href="/display/">百态</a>
         <a class="site-header__nav-link" href="/about/">关于</a>
       </nav>
 
@@ -39,18 +38,13 @@
     </header>
 
     <!-- ==================== Main ==================== -->
-    <main class="join-main">
-      <section style="max-width: 880px; margin: 0 auto">
-        <article class="join-card">
-          <div id="doc-content" class="doc-content">
-            <p>正在加载文档...</p>
-          </div>
-        </article>
+    <main class="main">
+      <section class="waterfall" id="display-list" data-display-list>
+        <p class="display-loading" data-display-loading>正在加载作品...</p>
       </section>
     </main>
 
     <script src="/assets/js/main.js"></script>
-    <script src="/assets/vendor/marked.min.js"></script>
-    <script src="/assets/js/doc.js"></script>
+    <script src="/assets/js/display.js"></script>
   </body>
 </html>

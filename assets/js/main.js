@@ -30,7 +30,7 @@
   var visibilityMap = {};
 
   function setBackground(src) {
-    if (!src || src === currentSrc) return;
+    if (!src || src === currentSrc || BG_LAYERS.length < 2) return;
     currentSrc = src;
     var next = 1 - currentLayer;
     BG_LAYERS[next].style.backgroundImage = "url('" + src + "')";
