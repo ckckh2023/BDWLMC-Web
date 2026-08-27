@@ -5,7 +5,7 @@
   if (!STATUS_CARD) return;
 
   var HOST =
-    STATUS_CARD.getAttribute("data-host") || "bdwl.xiao-blog.top:26756";
+    STATUS_CARD.getAttribute("data-host") || "bdwl.xiao-blog.top";
   var API = "https://api.mcsrvstat.us/3/" + HOST;
 
   var dotEl = STATUS_CARD.querySelector("[data-status-dot]");
