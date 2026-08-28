@@ -3,45 +3,27 @@
   "items": [
     {
       "title": "BDWL题字",
-      "image": "/assets/display/shufa.jpeg",
+      "image": "/assets/display/书法.jpeg",
       "author": "BE_MINECARFT1988",
       "description": "热心玩家给服务器的独特题字，彰显个性"
     },
     {
       "title": "田园牧歌",
-      "image": "/assets/display/foodgood.png",
+      "image": "/assets/display/麦田.png",
       "author": "sanitater_1634",
       "description": "樱花盆地里前中期玩家的聚集地，优美的风景与充裕的基础物资使萌新和养老玩家们免于袭扰"
     },
     {
-      "title": "天空之城",
-      "image": "/assets/src/src1.png",
-      "author": "群友A",
-      "description": "悬浮于云海之上的宏伟城邦，集众人之力历时数月建成。"
+      "title": "开服合影",
+      "image": "/assets/display/开服合影.png",
+      "author": "全体服务器玩家",
+      "description": "在服务器即将迎来开学季之前，全体玩家齐聚一堂，共同见证这一历史时刻"
     },
     {
-      "title": "深海枢纽",
-      "image": "/assets/src/src2.png",
-      "author": "群友B",
-      "description": "海底隧道与潮汐能电站，红石与建筑的完美结合。"
-    },
-    {
-      "title": "荒原灯塔",
-      "image": "/assets/src/src3.png",
-      "author": "群友C",
-      "description": "矗立于荒原尽头的灯塔，为夜航者指引归途。"
-    },
-    {
-      "title": "方块集市",
-      "image": "/assets/src/src4.png",
-      "author": "群友D",
-      "description": "玩家自发聚集的繁华集市，百态人生的缩影。"
-    },
-    {
-      "title": "群山秘境",
-      "image": "/assets/src/src5.png",
-      "author": "群友E",
-      "description": "隐于群山之间的世外桃源，自然与建造的和谐共生。"
+      "title": "叠叠乐",
+      "image": "/assets/display/叠高高.png",
+      "author": "全体服务器玩家",
+      "description": "开服合影时一起玩的雷霆叠叠乐"
     }
   ]
 }
