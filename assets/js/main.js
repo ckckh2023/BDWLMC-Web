@@ -87,6 +87,7 @@
 
   window.BDWLMC = window.BDWLMC || {};
   window.BDWLMC.initBackground = initBackground;
+  window.BDWLMC.setBackgroundBySrc = setBackground;
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);

@@ -478,6 +478,16 @@
   }
 }
 
+/* ==================== 百态页：加载期间渐变兜底背景 ==================== */
+.page-display .bg-blur {
+  background-image: radial-gradient(
+      circle at 25% 15%,
+      rgba(45, 125, 70, 0.35),
+      transparent 55%
+    ),
+    radial-gradient(circle at 80% 85%, rgba(58, 90, 138, 0.32), transparent 55%);
+}
+
 /* ==================== 百态页：图片预览 Lightbox ==================== */
 .lightbox {
   padding: 0;
@@ -488,10 +498,39 @@
   max-width: min(92vw, 1200px);
   max-height: 92vh;
   overflow: hidden;
+  margin: auto;
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.22s ease, transform 0.22s ease,
+    overlay 0.22s ease allow-discrete;
+}
+
+.lightbox[open] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@starting-style {
+  .lightbox[open] {
+    opacity: 0;
+    transform: scale(0.92);
+  }
 }
 
 .lightbox::backdrop {
   background-color: rgba(0, 0, 0, 0.75);
+  opacity: 0;
+  transition: opacity 0.22s ease, overlay 0.22s ease allow-discrete;
+}
+
+.lightbox[open]::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  .lightbox[open]::backdrop {
+    opacity: 0;
+  }
 }
 
 .lightbox__image {

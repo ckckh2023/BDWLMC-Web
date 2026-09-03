@@ -68,6 +68,9 @@
       return;
     }
     listEl.innerHTML = "";
+    if (window.BDWLMC && typeof window.BDWLMC.setBackgroundBySrc === "function") {
+      window.BDWLMC.setBackgroundBySrc(items[0].image);
+    }
     items.forEach(function (item, index) {
       listEl.appendChild(renderCard(item, index));
     });
