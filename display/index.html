@@ -39,10 +39,14 @@
 
     <!-- ==================== Main ==================== -->
     <main class="main">
-      <section class="waterfall" id="display-list" data-display-list>
-        <p class="display-loading" data-display-loading>正在加载作品...</p>
-      </section>
+      <section class="waterfall" id="display-list" data-display-list></section>
     </main>
+
+    <!-- ==================== 图片预览 Lightbox ==================== -->
+    <dialog class="lightbox" aria-label="图片预览">
+      <button class="lightbox__close" type="button" aria-label="关闭">&times;</button>
+      <img class="lightbox__image" alt="" />
+    </dialog>
 
     <script src="/assets/js/main.js"></script>
     <script src="/assets/js/display.js"></script>

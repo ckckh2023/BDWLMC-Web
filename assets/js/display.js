@@ -71,6 +71,9 @@
     items.forEach(function (item, index) {
       listEl.appendChild(renderCard(item, index));
     });
+    if (window.BDWLMC && typeof window.BDWLMC.initBackground === "function") {
+      window.BDWLMC.initBackground();
+    }
   }
 
   function load() {
@@ -83,6 +86,34 @@
       .catch(function () {
         renderError("加载失败，请稍后重试。");
       });
+  }
+
+  // ===== 图片预览 Lightbox =====
+  var lightbox = document.querySelector(".lightbox");
+  var lightboxImg = lightbox && lightbox.querySelector(".lightbox__image");
+
+  function openLightbox(src, alt) {
+    if (!lightbox || !lightboxImg || !src) return;
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || "";
+    if (lightbox.open) lightbox.close();
+    if (typeof lightbox.showModal === "function") {
+      lightbox.showModal();
+    }
+  }
+
+  if (lightbox && lightboxImg) {
+    listEl.addEventListener("click", function (event) {
+      var img = event.target.closest(".card__image");
+      if (!img) return;
+      openLightbox(img.currentSrc || img.src, img.alt);
+    });
+
+    lightbox.addEventListener("click", function (event) {
+      if (event.target === lightbox || event.target.closest(".lightbox__close")) {
+        lightbox.close();
+      }
+    });
   }
 
   if (document.readyState === "loading") {

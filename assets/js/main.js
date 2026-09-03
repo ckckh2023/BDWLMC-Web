@@ -24,10 +24,10 @@
 
   // ===== 动态模糊背景 =====
   var BG_LAYERS = document.querySelectorAll(".bg-blur__layer");
-  var CARDS = document.querySelectorAll(".card");
   var currentLayer = 0;
   var currentSrc = null;
   var visibilityMap = {};
+  var bgObserver = null;
 
   function setBackground(src) {
     if (!src || src === currentSrc || BG_LAYERS.length < 2) return;
@@ -58,8 +58,11 @@
   }
 
   function initBackground() {
-    if (!("IntersectionObserver" in window) || CARDS.length === 0) return;
-    var observer = new IntersectionObserver(
+    if (!("IntersectionObserver" in window)) return;
+    var cards = document.querySelectorAll(".card");
+    if (cards.length === 0) return;
+    if (bgObserver) bgObserver.disconnect();
+    bgObserver = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
           visibilityMap[entry.target.id] = entry.intersectionRatio;
@@ -68,10 +71,10 @@
       },
       { threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] }
     );
-    CARDS.forEach(function (card) {
-      observer.observe(card);
+    cards.forEach(function (card) {
+      bgObserver.observe(card);
     });
-    var firstImg = CARDS[0].querySelector(".card__image");
+    var firstImg = cards[0].querySelector(".card__image");
     if (firstImg) {
       setBackground(firstImg.currentSrc || firstImg.src);
     }
@@ -81,6 +84,9 @@
     setActiveNav();
     initBackground();
   }
+
+  window.BDWLMC = window.BDWLMC || {};
+  window.BDWLMC.initBackground = initBackground;
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);

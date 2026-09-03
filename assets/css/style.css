@@ -477,3 +477,50 @@
     font-size: 20px;
   }
 }
+
+/* ==================== 百态页：图片预览 Lightbox ==================== */
+.lightbox {
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-card);
+  background-color: var(--color-surface);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+  max-width: min(92vw, 1200px);
+  max-height: 92vh;
+  overflow: hidden;
+}
+
+.lightbox::backdrop {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.lightbox__image {
+  display: block;
+  max-width: min(92vw, 1200px);
+  max-height: 92vh;
+  object-fit: contain;
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: background-color var(--transition);
+}
+
+.lightbox__close:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
